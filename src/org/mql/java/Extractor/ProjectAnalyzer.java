@@ -35,11 +35,11 @@ public class ProjectAnalyzer {
 		System.out.println("Package :" +packageName);
 		List<String> classNames = new ArrayList<>();
 		 extractClassName(javaFile, classNames);
-		System.out.println("Classes :");
+		System.out.println("Classes :" +classNames);
 		
 		//afficher les noms des classes separes
 		for( String className : classNames) {
-			System.out.println(className + " |");
+		//	System.out.println(className + " |");
 		}
 		
 		
@@ -53,7 +53,7 @@ public class ProjectAnalyzer {
 	    String srcPath = new File(javaFile.getParentFile(), "src").getAbsolutePath();
 
 	    // Supprime le chemin du répertoire src du chemin absolu du fichier Java
-	    String relativePath = filePath.substring(srcPath.length() + 1); // +1 pour éviter le séparateur initial
+	    String relativePath = filePath.substring(srcPath.length() -3); // +1 pour éviter le séparateur initial
 
 	    // Remplace les séparateurs de fichiers par des points pour obtenir le nom du package
 	    String packageName = relativePath.replace(File.separator, ".");

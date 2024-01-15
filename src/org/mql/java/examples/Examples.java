@@ -6,10 +6,9 @@ import org.mql.java.Extractor.ProjectAnalyzer;
 
 public class Examples {
 
-	public static void main(String[] args) {
-		String projectLocation ="C:\\Users\\hp\\eclipse-workspace\\IBEN_EL_RHAZI_EL_MEHDI_JUnit";
-		ProjectAnalyzer.TraverseProject(new File(projectLocation));
-
-	}
-
+    public static void main(String[] args) {
+        String projectLocation = "C:\\Users\\hp\\eclipse-workspace\\P03_AnnotationsAndReflection";
+        ProjectAnalyzer projectAnalyzer = new ProjectAnalyzer();
+        projectAnalyzer.traverseProject(new File(projectLocation));
+    }
 }

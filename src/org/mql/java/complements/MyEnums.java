@@ -16,13 +16,11 @@ public class MyEnums {
             while ((line = reader.readLine()) != null) {
                 // Vérifie si la ligne contient le mot-clé "enum"
                 if (line.contains("enum")) {
-                    // Supprime l'extension .java pour obtenir le nom de l'énumération
                     return javaFile.getName().substring(0, javaFile.getName().length() - ".java".length());
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
-            // Gérer les exceptions
         }
         return null;
     }

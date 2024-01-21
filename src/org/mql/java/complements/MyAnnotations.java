@@ -21,7 +21,6 @@ public class MyAnnotations {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            // Gérer les exceptions
         }
         return false;
     }

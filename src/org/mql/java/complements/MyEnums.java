@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
+/*
 public class MyEnums {
 
 	public MyEnums() {
@@ -24,4 +24,4 @@ public class MyEnums {
         }
         return null;
     }
-}
+}*/

@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyClass {
-	
+
 	private Class<?> cls ;
 	private String type;
+	private List<Method> methods;
+	private List<Field> fields;
 
-    public MyClass(Class<?> cls) {
+	public MyClass(Class<?> cls) {
 		super();
 		this.cls = cls;
 		if(cls.isInterface()) {
@@ -22,13 +24,15 @@ public class MyClass {
 		}
 		else if(cls.isAnnotation()) {
 			type="annotation";
-			
+
 		}else {
-			 type="classe";
+			type="classe";
 		}
-		
-    }
-    
+
+	}
+
+
+
 	public String getType() {
 		return type;
 	}
@@ -40,6 +44,13 @@ public class MyClass {
 		return cls.getSimpleName();
 	}
 
+	public Field[] getAttributes() {
+		return cls.getDeclaredFields();
+	}
+
+	public Method[] getMethods() {
+		return cls.getDeclaredMethods();
+	}
 
 
 
@@ -47,64 +58,4 @@ public class MyClass {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public static List<Field> getFields(Class<?> c) {
-        Field[] fields = c.getDeclaredFields();
-        List<Field> listFields = new ArrayList<>();
-        for (Field field : fields) {
-            listFields.add(field);
-        }
-        return listFields;
-    }
-
-    public static List<Method> getMethods(Class<?> c) {
-        Method[] methods = c.getDeclaredMethods();
-        List<Method> listMethod = new ArrayList<>();
-        for (Method method : methods) {
-            listMethod.add(method);
-        }
-        return listMethod;
-    }
-
-    public static List<Constructor<?>> getConstructors(Class<?> cls) {
-        Constructor<?>[] constructors = cls.getDeclaredConstructors();
-        List<Constructor<?>> constructorList = new ArrayList<>();
-        for (Constructor<?> constructor : constructors) {
-            constructorList.add(constructor);
-        }
-        return constructorList;
-    }
-
-    public static String getArguments(Member member) {
-        StringBuilder string = new StringBuilder();
-        Parameter[] parameters = ((Executable) member).getParameters();
-        if (parameters.length != 0) {
-            for (int i = 0; i < parameters.length - 1; i++) {
-                string.append(parameters[i].getType().getTypeName()).append(", ");
-            }
-            string.append(parameters[parameters.length - 1].getType().getTypeName());
-        }
-        return string.toString();
-    }
 }

@@ -14,10 +14,10 @@ public class Customloader {
 			URLClassLoader urlcl = new URLClassLoader(urls);
 			Class<?> cls  = urlcl.loadClass(className);
 			return cls;
-			
+
 		} catch (Exception e) {
 		}
-		
+
 		return null;
 	}
 

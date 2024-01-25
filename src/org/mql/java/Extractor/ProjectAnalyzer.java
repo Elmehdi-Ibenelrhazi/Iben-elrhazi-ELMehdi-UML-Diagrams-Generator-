@@ -30,50 +30,50 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class ProjectAnalyzer {
-	
+
 	private String filePath;
 	private Project projet;
 
-    public static Set<String> processedPackages = new HashSet<>(); 
-    
-    public static Map<String, Set<String>> processedPackagesClasses = new HashMap<>();
-    public static Set<String> processedClasses = new HashSet<>();
- // Ajouter une liste pour stocker les instances de ClassInfo
-   /// private static List<ClassInfo> classInfoList = new ArrayList<>();
-    
-    public ProjectAnalyzer(String filePath) {
-    	this.filePath = filePath + "\\bin";
-    	
-    	
-    	
-    }
-    
-    
-    public Project traverseProject() {
-    	File f = new File(filePath);
-    	if(!f.exists()) {
-    		return null;
-    	}
-    	projet = new Project(filePath);
-        if (f.isDirectory()) {
-            File[] files = f.listFiles();
-                for (File subFile : files) {
-                	if(subFile.isDirectory()) {
-                    projet.addPackage(getPackage(subFile));
-                }else if(subFile.getName().endsWith(".class")) {
-                	projet.addClasse(getClasse(subFile));//changer vers une classe au lieu d'un fichier
-                }
-                	}
-            }
-        
+	public static Set<String> processedPackages = new HashSet<>(); 
+
+	public static Map<String, Set<String>> processedPackagesClasses = new HashMap<>();
+	public static Set<String> processedClasses = new HashSet<>();
+	// Ajouter une liste pour stocker les instances de ClassInfo
+	/// private static List<ClassInfo> classInfoList = new ArrayList<>();
+
+	public ProjectAnalyzer(String filePath) {
+		this.filePath = filePath + "\\bin";
+
+
+
+	}
+
+
+	public Project traverseProject() {
+		File f = new File(filePath);
+		if(!f.exists()) {
+			return null;
+		}
+		projet = new Project(filePath);
+		if (f.isDirectory()) {
+			File[] files = f.listFiles();
+			for (File subFile : files) {
+				if(subFile.isDirectory()) {
+					projet.addPackage(getPackage(subFile));
+				}else if(subFile.getName().endsWith(".class")) {
+					projet.addClasse(getClasse(subFile));//changer vers une classe au lieu d'un fichier
+				}
+			}
+		}
+
 		return projet; 
-    }
-    
-    private MyPackage getPackage(File f) {
-    	//System.out.println("Packages : " +f.getName());
-    	MyPackage p = new MyPackage(f.getName());
-    	File[] files = f.listFiles();
-    	for (File file : files) {
+	}
+
+	private MyPackage getPackage(File f) {
+		//System.out.println("Packages : " +f.getName());
+		MyPackage p = new MyPackage(f.getName());
+		File[] files = f.listFiles();
+		for (File file : files) {
 			if(file.isDirectory()) {
 				p.addPackage(getPackage(file));//recursevite
 			}
@@ -81,20 +81,19 @@ public class ProjectAnalyzer {
 				projet.addClasse(getClasse(file));
 			}
 		}
-    	return p;
-    }
-    
-    private MyClass getClasse(File f) {
-    	String className = f.getPath().substring(filePath.length() + 1).replace("\\",".").replace(".class", "");
-		Class<?> cls = Customloader.loadClass(filePath,className);
-    	//System.out.println("Classe : " +cls.getName());
-    	MyClass c = new MyClass(cls);
-    	return c;
-    }
-    
-	
+		return p;
+	}
 
-    
+	private MyClass getClasse(File f) {
+		String className = f.getPath().substring(filePath.length() + 1).replace("\\",".").replace(".class", "");
+		Class<?> cls = Customloader.loadClass(filePath,className);
+		//System.out.println("Classe : " +cls.getName());
+		MyClass c = new MyClass(cls);
+		return c;
+	}
+
+
+	/*   
     public void processFileList(File fileList) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileList))) {
             String line;
@@ -107,7 +106,7 @@ public class ProjectAnalyzer {
         }
     }
 
-   
+
 
 	public static String extractPackageName(File javaFile) {
         // Obtient le chemin absolu du fichier Java
@@ -133,12 +132,12 @@ public class ProjectAnalyzer {
 
 
  //extraction des interfaces 
-    
+
     public static List<String> extractInterfaces(Class<?> c) {
 		List<String> interfaceList = new LinkedList<String>();
 		Class<?> interfaces[] = c.getInterfaces(); 
 		if(interfaces.length != 0) {
-			
+
 			for(int i = 0 ; i < interfaces .length; i++) {
 				interfaceList.add(interfaces[i].getSimpleName());
 			}
@@ -151,10 +150,10 @@ public class ProjectAnalyzer {
         return Class.forName(className, true, classLoader);
     }
 
-   
+
 
     /*
-   
+
     public static String extractInterfaceName(File javaFile) {
         try {
             String className = extractClassName(javaFile);
@@ -172,10 +171,10 @@ public class ProjectAnalyzer {
         }
         return null;
     }
-	
-	
-	
-    
+
+
+
+
     public static String extractAnnotation(File javaFile) {
     	String filename = javaFile.getName();
     	if(MyAnnotations.hasAnnotations(javaFile)) {
@@ -183,121 +182,65 @@ public class ProjectAnalyzer {
     	}else 
     		return null;
     }
-    */
-public static Document createXmlDocument(Set<String> processedPackages) throws ParserConfigurationException {
-    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-    Document doc = docBuilder.newDocument();
+	 */
+	public static Document createXmlDocument(Set<String> processedPackages) throws ParserConfigurationException {
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+		Document doc = docBuilder.newDocument();
 
-    Element rootElement = doc.createElement("ProjectInfo");
-    doc.appendChild(rootElement);
+		Element rootElement = doc.createElement("ProjectInfo");
+		doc.appendChild(rootElement);
 
-    for (String packageName : processedPackages) {
-        Element packageElement = doc.createElement("Package");
-        packageElement.setAttribute("name", packageName);
-        rootElement.appendChild(packageElement);
-        
-        // Récupérer les classes du package à partir du Map
-        Set<String> packageClasses = processedPackagesClasses.get(packageName);
+		for (String packageName : processedPackages) {
+			Element packageElement = doc.createElement("Package");
+			packageElement.setAttribute("name", packageName);
+			rootElement.appendChild(packageElement);
 
-        // Vérifier si le package a des classes
-        if (packageClasses != null) {
-            for (String className : packageClasses) {
-                Element classElement = doc.createElement("Class");
-                classElement.setAttribute("name", className);
-                packageElement.appendChild(classElement);
-            }
-        }
-    }
+			// Récupérer les classes du package à partir du Map
+			Set<String> packageClasses = processedPackagesClasses.get(packageName);
 
-    return doc;
-}
+			// Vérifier si le package a des classes
+			if (packageClasses != null) {
+				for (String className : packageClasses) {
+					Element classElement = doc.createElement("Class");
+					classElement.setAttribute("name", className);
+					packageElement.appendChild(classElement);
+				}
+			}
+		}
 
-
-public static void saveXmlDocument(Document doc, String filePath) throws TransformerException {
-    TransformerFactory transformerFactory = TransformerFactory.newInstance();
-    Transformer transformer = transformerFactory.newTransformer();
-    transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // Ajoutez cette ligne pour activer l'indentation
-    transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2"); // Nombre d'espaces pour l'indentation
-    DOMSource source = new DOMSource(doc);
-    StreamResult result = new StreamResult(new File("resource/Infos.xml"));
-    transformer.transform(source, result);
-}
+		return doc;
+	}
 
 
-public static void addProcessedPackage(String packageName) {
-    processedPackages.add(packageName);
-}
+	public static void saveXmlDocument(Document doc, String filePath) throws TransformerException {
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // Ajoutez cette ligne pour activer l'indentation
+		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2"); // Nombre d'espaces pour l'indentation
+		DOMSource source = new DOMSource(doc);
+		StreamResult result = new StreamResult(new File("resource/Infos.xml"));
+		transformer.transform(source, result);
+	}
 
-public static void addPackageClass(String packageName, String className) {
-    processedPackagesClasses.computeIfAbsent(packageName, k -> new HashSet<>()).add(className);
-}
 
-private static List<ClassInfo> classInfoList = new ArrayList<>();
+	public static void addProcessedPackage(String packageName) {
+		processedPackages.add(packageName);
+	}
+
+	public static void addPackageClass(String packageName, String className) {
+		processedPackagesClasses.computeIfAbsent(packageName, k -> new HashSet<>()).add(className);
+	}
+
+	private static List<ClassInfo> classInfoList = new ArrayList<>();
 
 
-public static List<ClassInfo> getClassInfoList() {
-	// TODO Auto-generated method stub
-	return classInfoList;
-}
+	public static List<ClassInfo> getClassInfoList() {
+		// TODO Auto-generated method stub
+		return classInfoList;
+	}
 
-public static void addClassInfo(ClassInfo classInfo) {
-	classInfoList.add(classInfo);
+	public static void addClassInfo(ClassInfo classInfo) {
+		classInfoList.add(classInfo);
 	}
 }
-/*
-public static List<ClassInfo> getClassInfoList() {
-    return classInfoList;
-}
-/*public static void addProcessedClass(String className) {
-    processedClasses.add(className);
-    ClassInfo classInfo = new ClassInfo(className);
-    classInfo.extractClassInfo();
-    classInfoList.add(classInfo);
-    System.out.println("ProjectAnalyzer - Classe ajoutée : " + className);
-}
-
-public static Set<String> getProcessedClasses() {
-    return processedClasses;
-}
-}
-    
-/*
-    public void addRelations(Relation relation) {
-    	relations.add(relation);
-    }
-    
-    public List<Relation> getRelations(){
-    	return relations;
-    }
-    
-    
-    public static Set<Relation> extractRelations(String className){
-    	Set<Relation> relations = new HashSet<>();
-    	
-    	//heritage
-    	try {
-    		Class<?> clazz = Class.forName(className);
-    		Class<?> superClass = clazz.getSuperclass();
-    	if(superClass != null) {
-    		relations.add(new Relation("heritee ", className, superClass.getSimpleName()));
-    	}
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-    
-    	return relations;
-    }
-    
-    public void printRelations() {
-        System.out.println("Detected Relations:");
-        for (Relation relation : relations) {
-            System.out.println(relation.getType() + " - " + relation.getSource() + " to " + relation.getDestination());
-        }
-    }
-
-    
-  
-    
-}*/

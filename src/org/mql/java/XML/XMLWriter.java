@@ -1,5 +1,8 @@
 package org.mql.java.XML;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import org.mql.java.complements.MyClass;
 import org.mql.java.complements.MyPackage;
 import org.mql.java.complements.Project;
@@ -45,6 +48,21 @@ public class XMLWriter {
 		XMLNode name = document.createNode("Name");
 		name.setValue(c.getClasseName());
 		classeNode.appendChild(name);
+		for (Method m : c.getMethods()) {
+			XMLNode methode = document.createNode("Methode");
+			methode.setValue(m.getName());
+			classeNode.appendChild(methode);
+		}
+		
+		for (Field  f : c.getAttributes()) {
+			XMLNode attribut = document.createNode("attribut");
+			attribut.setValue(f.getName());
+			classeNode.appendChild(attribut);
+			
+		}
+		
+		
+		
 		return classeNode;
 		
 	}

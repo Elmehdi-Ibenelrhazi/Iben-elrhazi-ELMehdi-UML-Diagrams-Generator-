@@ -1,9 +1,9 @@
 package org.mql.java.ui;
 
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import org.mql.java.complements.MyPackage;
 import org.mql.java.complements.Project;
@@ -20,23 +20,18 @@ public class PackagePanel extends JPanel{
 		
 		this.setProjet(p);
 		setLayout(new GridLayout(rows, cols, hgap, vgap));
-		addEntity();
+		// Filtrer les éventuels packages null avant de les ajouter à la grille.
+		List<MyPackage> list = projet.getListePackages().stream().filter(item -> item != null).toList();
+		addPackages(list);
 		
 	}
 
-	private void addEntity() {
-		for (MyPackage p : projet.getListePackages()) {
-			JPanel pl = new JPanel();
-			JPanel e = new PComposant(p);
-			e.setBorder(new EmptyBorder(20,20,20,20));
-			pl.add(e);
-			add(pl);
-			
-		}
+	private void addPackages(List<MyPackage> packages) {
+	        for (MyPackage p : packages) {
+	            add(new PackageComposant(p));
+			}
 	}
 		
-		
-
 	public Project getProjet() {
 		return projet;
 	}

@@ -26,7 +26,7 @@ public class ClassPanel extends JPanel {
 	private void addEntity() {
 		for(MyClass cls : projet.getListeClasses()) {
 			JPanel pl = new JPanel();
-			JPanel e = new Composants(cls);
+			JPanel e = new ClassComposants(cls);
 			e.setBorder(new EmptyBorder(20,20,20,20));
 			pl.add(e);
 			add(pl);

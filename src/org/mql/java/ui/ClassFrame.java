@@ -15,7 +15,8 @@ public class ClassFrame extends JFrame{
 		setLocationRelativeTo(null);
 		setContentPane(new JScrollPane(new ClassPanel(p)));
 		pack();
-		setExtendedState(MAXIMIZED_BOTH);
+		setSize(650, 700);
+	    setLocation(0, 0);
 		setVisible(true);
 		
 

@@ -11,7 +11,7 @@ public class Project {
 
 	public Project(String javaPath) {
 		super();
-		this.javaPath = javaPath;
+		this.setJavaPath(javaPath);
 		this.listeClasses = new Vector<MyClass>();
 		this.listePackages = new Vector<MyPackage>();
 	}
@@ -29,6 +29,14 @@ public class Project {
 	}
 	public List<MyClass> getListeClasses() {
 		return listeClasses;
+	}
+
+	public String getJavaPath() {
+		return javaPath;
+	}
+
+	public void setJavaPath(String javaPath) {
+		this.javaPath = javaPath;
 	}
 
 

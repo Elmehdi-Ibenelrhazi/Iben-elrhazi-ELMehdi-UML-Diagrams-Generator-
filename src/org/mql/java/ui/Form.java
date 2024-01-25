@@ -1,5 +1,6 @@
 package org.mql.java.ui;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +23,9 @@ public class Form extends JPanel implements ActionListener{
 		button = new JButton("Parcourir");
 		button.addActionListener(this);
 		button.setBorder(new EmptyBorder(20,20,20,20));
+		button.setPreferredSize(new Dimension(100, 40));
 		setLayout(new FlowLayout(FlowLayout.CENTER));
+		
 		
 		add(button);
 		
@@ -55,7 +58,7 @@ public class Form extends JPanel implements ActionListener{
 		}
 
 		new ClassFrame(project);
-		new PackageFrame(project);
+		//new PackageFrame(project);////affichage incorrete á revenir
 
 
 

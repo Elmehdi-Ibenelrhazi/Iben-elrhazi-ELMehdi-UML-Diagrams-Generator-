@@ -14,13 +14,13 @@ import javax.swing.border.LineBorder;
 
 import org.mql.java.complements.MyClass;
 
-public class Composants extends JPanel{
+public class ClassComposants extends JPanel{
 
 
 	private static final long serialVersionUID = 1L;
 	private MyClass cls;
 
-	public Composants(MyClass cls) {
+	public ClassComposants(MyClass cls) {
 		this.cls = cls;
 		setLayout(new BorderLayout());
 		JPanel classBody = new JPanel();

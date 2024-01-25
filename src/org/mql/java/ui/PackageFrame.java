@@ -14,7 +14,8 @@ public class PackageFrame extends JFrame{
 		setLocationRelativeTo(null);
 		setContentPane(new JScrollPane(new PackagePanel(p)));
 		pack();
-		setExtendedState(MAXIMIZED_BOTH);
+		setSize(700,800);
+	    setLocation(630,0);
 		setVisible(true);
 	}
 

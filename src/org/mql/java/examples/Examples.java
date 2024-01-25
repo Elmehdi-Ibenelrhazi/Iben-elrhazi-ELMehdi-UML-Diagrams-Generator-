@@ -2,50 +2,29 @@ package org.mql.java.examples;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.io.File;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-
-import org.mql.java.Extractor.ClassInfo;
-//import org.mql.java.Extractor.ClassInfo;
 
 import org.mql.java.Extractor.ProjectAnalyzer;
-import org.mql.java.XML.XMLNode;
 import org.mql.java.XML.XMLWriter;
 import org.mql.java.complements.Project;
 import org.mql.java.ui.Form;
-import org.w3c.dom.Document;
 
 public class Examples extends JFrame{
 
+	
+	private static final long serialVersionUID = 1L;
+
+
 	public Examples() {
-		exp03();
+		exp02();
 	}
+
+	
+
 
 	void exp01() {
-		/*String projectLocation = "C:\\Users\\hp\\eclipse-workspace\\P03_AnnotationsAndReflection";
-		ProjectAnalyzer projectAnalyzer = new ProjectAnalyzer();
-		ProcessJavaFile processJavaFile = new ProcessJavaFile();
-
-		processJavaFile.traverseProject(new File(projectLocation), projectAnalyzer);
-		try {
-			Document doc = ProjectAnalyzer.createXmlDocument(ProjectAnalyzer.processedPackages);
-			ProjectAnalyzer.saveXmlDocument(doc, "project_info.xml");
-			System.out.println("Project information saved to project_info.xml");
-		} catch (ParserConfigurationException | TransformerException e) {
-			e.printStackTrace();
-			System.out.println("probleme vient d'ici");
-		}
-		for (ClassInfo classInfo : ProjectAnalyzer.getClassInfoList()) {
-			classInfo.displayClassInfo();
-		}*/
-
-	}
-
-
-	void exp02() {
 		String projectLocation = "C:\\Users\\hp\\eclipse-workspace\\P03_AnnotationsAndReflection";
 		ProjectAnalyzer projectAnalyzer = new ProjectAnalyzer(projectLocation);
 
@@ -56,15 +35,18 @@ public class Examples extends JFrame{
 
 
 	}
-	void exp03() {
+	void exp02() {
 		setContentPane(new Form());
 		pack();
 		setTitle("UML Diagrams Generator");
 		setLocationRelativeTo(null);
-		setSize(new Dimension(500,500));
+		setSize(new Dimension(300,100));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new FlowLayout(FlowLayout.CENTER));
+		ImageIcon icon = new ImageIcon("resource\\uml-f.png");
+		setIconImage(icon.getImage());
 		setVisible(true);
+		setResizable(false);
 
 
 	}

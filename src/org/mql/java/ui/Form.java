@@ -58,7 +58,7 @@ public class Form extends JPanel implements ActionListener{
 		}
 
 		new ClassFrame(project);
-		//new PackageFrame(project);////affichage incorrete á revenir
+		new PackageFrame(project);////affichage incorrete á revenir 
 
 
 
